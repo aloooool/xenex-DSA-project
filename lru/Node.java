@@ -1,4 +1,4 @@
-
+package lru;
 public class Node {
     
     Node prev;

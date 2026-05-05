@@ -1,3 +1,4 @@
+package lru;
 public class DoublyLinkedList{
     Node head;
     Node tail;
