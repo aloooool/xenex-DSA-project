@@ -1,0 +1,15 @@
+public Node removeTail() {
+
+        if (tail == null) return null;
+
+        Node removed = tail;
+
+        if (head == tail) {
+            head = tail = null;
+        } else {
+            tail = tail.prev;
+            tail.next = null;
+        }
+
+        return removed;
+    }
