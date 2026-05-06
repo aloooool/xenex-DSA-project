@@ -51,4 +51,9 @@ public DoublyLinkedList(){
             tail = head;
         }
     }
+
+    public Node removeLRU(){
+        //please add the body , it's only skeleton code to run LRUCache class
+        return null;
+    }
 }
