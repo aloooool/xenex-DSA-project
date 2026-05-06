@@ -1,16 +1,17 @@
 package lru;
 
-public class DoublyLinkedList{
+public class DoublyLinkedList {
     Node head;
     Node tail;
-public DoublyLinkedList(){
+
+    public DoublyLinkedList() {
         head = null;
         tail = null;
     }
 
-    public void insertAtFront(int key ,int value){
+    public void insertAtFront(int key, int value) {
         Node start = new Node(key, value);
-        if (head == null){
+        if (head == null) {
             head = start;
             tail = start;
         } else {
@@ -50,5 +51,27 @@ public DoublyLinkedList(){
         if (tail == null) {
             tail = head;
         }
+    }
+
+    void removeNode(Node node) {
+        if (node == null) {
+            return;
+        }
+
+        if (node == head && node == tail) {
+            head = tail = null;
+        } else if (node == head) {
+            head = head.next;
+            head.prev = null;
+        } else if (node == tail) {
+            tail = tail.prev;
+            tail.next = null;
+        } else {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+        }
+
+        node.prev = null;
+        node.next = null;
     }
 }
