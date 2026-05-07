@@ -8,10 +8,13 @@ public class DoublyLinkedList {
         head = null;
         tail = null;
     }
+    private boolean isempty(){
+        return head == null;
+    }
 
     public void insertAtFront(int key, int value) {
         Node start = new Node(key, value);
-        if (head == null) {
+        if (isempty()) {
             head = start;
             tail = start;
         } else {
@@ -23,41 +26,16 @@ public class DoublyLinkedList {
 
     public void moveNodeToFront(Node node) {
 
-        if (node == null || node == head) {
-            return;
-        }
-
-        if (node.prev != null) {
-            node.prev.next = node.next;
-        }
-
-        if (node.next != null) {
-            node.next.prev = node.prev;
-        }
-
-        if (node == tail) {
-            tail = node.prev;
-        }
-
-        node.next = head;
-        node.prev = null;
-
-        if (head != null) {
-            head.prev = node;
-        }
-
-        head = node;
-
-        if (tail == null) {
-            tail = head;
-        }
+       Node temp = node;
+       removeNode(node);
+       insertAtFront(temp.key, temp.value);
     }
 
     void removeNode(Node node) {
-        if (node == null) {
+        if (isempty()) {
             return;
         }
-
+        
         if (node == head && node == tail) {
             head = tail = null;
         } else if (node == head) {
@@ -73,10 +51,48 @@ public class DoublyLinkedList {
 
         node.prev = null;
         node.next = null;
-=======
-    public Node removeLRU(){
-        //please add the body , it's only skeleton code to run LRUCache class
-        return null;
->>>>>>> main
+    }
+    public Node removeLRU() {
+
+        if (isempty()) return null;
+
+        Node removed = tail;
+
+        if (head == tail) {
+            head = tail = null;
+        } else {
+            tail = tail.prev;
+            tail.next = null;
+        }
+
+        return removed;
+    }
+    public int search(int key){
+        if(isempty()){
+            return -1; 
+        }else{
+            Node temp = head;
+            while(temp != null && temp.key !=key){
+                temp= temp.next;            
+            }
+            if(temp == null){
+                return -1;
+            }
+            return temp.value;
+        }
+    }
+    public Node getNode(int key){
+        if(isempty()){
+            return null; 
+        }else{
+            Node temp = head;
+            while(temp != null && temp.key !=key){
+                temp= temp.next;            
+            }
+            if(temp == null){
+                return null;
+            }
+            return temp;
+        }
     }
 }
