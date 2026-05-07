@@ -73,5 +73,10 @@ public class DoublyLinkedList {
 
         node.prev = null;
         node.next = null;
+=======
+    public Node removeLRU(){
+        //please add the body , it's only skeleton code to run LRUCache class
+        return null;
+>>>>>>> main
     }
 }
