@@ -1,50 +1,52 @@
 package lru;
 
 public class DoublyLinkedList {
-    Node head;
-    Node tail;
+    public Node head;
+    public Node tail;
 
     public DoublyLinkedList() {
         head = null;
         tail = null;
     }
-    private boolean isempty(){
+
+    private boolean isEmpty() {
         return head == null;
     }
 
-    public void insertAtFront(int key, int value) {
-        Node start = new Node(key, value);
-        if (isempty()) {
-            head = start;
-            tail = start;
+    // Insert a new node at the front (most recently used position)
+    public void insertAtFront(Node node) {
+        if (isEmpty()) {
+            head = node;
+            tail = node;
+            node.prev = null;
+            node.next = null;
         } else {
-            start.next = head;
-            head.prev = start;
-            head = start;
+            node.next = head;
+            node.prev = null;
+            head.prev = node;
+            head = node;
         }
     }
 
-    public void moveNodeToFront(Node node) {
-
-       Node temp = node;
-       removeNode(node);
-       insertAtFront(temp.key, temp.value);
-    }
-
-    void removeNode(Node node) {
-        if (isempty()) {
+    // Remove a node from any position
+    public void removeNode(Node node) {
+        if (isEmpty() || node == null) {
             return;
         }
-        
+
         if (node == head && node == tail) {
+            // Only one node
             head = tail = null;
         } else if (node == head) {
+            // Removing head
             head = head.next;
             head.prev = null;
         } else if (node == tail) {
+            // Removing tail
             tail = tail.prev;
             tail.next = null;
         } else {
+            // Removing middle node
             node.prev.next = node.next;
             node.next.prev = node.prev;
         }
@@ -52,9 +54,26 @@ public class DoublyLinkedList {
         node.prev = null;
         node.next = null;
     }
-    public Node removeLRU() {
 
-        if (isempty()) return null;
+    // Move an existing node to the front (most recently used)
+    public void moveNodeToFront(Node node) {
+        if (node == null || isEmpty()) {
+            return;
+        }
+
+        if (node == head) {
+            return; // Already at front
+        }
+
+        removeNode(node);
+        insertAtFront(node);
+    }
+
+    // Remove and return the least recently used node (tail)
+    public Node removeLRU() {
+        if (isEmpty()) {
+            return null;
+        }
 
         Node removed = tail;
 
@@ -65,34 +84,24 @@ public class DoublyLinkedList {
             tail.next = null;
         }
 
+        removed.prev = null;
+        removed.next = null;
         return removed;
     }
-    public int search(int key){
-        if(isempty()){
-            return -1; 
-        }else{
-            Node temp = head;
-            while(temp != null && temp.key !=key){
-                temp= temp.next;            
-            }
-            if(temp == null){
-                return -1;
-            }
-            return temp.value;
+
+    // Display the cache from most recent to least recent
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Cache is empty");
+            return;
         }
-    }
-    public Node getNode(int key){
-        if(isempty()){
-            return null; 
-        }else{
-            Node temp = head;
-            while(temp != null && temp.key !=key){
-                temp= temp.next;            
-            }
-            if(temp == null){
-                return null;
-            }
-            return temp;
+
+        System.out.print("Cache (Most Recent -> Least Recent): ");
+        Node temp = head;
+        while (temp != null) {
+            System.out.print("[Key: " + temp.key + ", Value: " + temp.value + "] ");
+            temp = temp.next;
         }
+        System.out.println();
     }
 }

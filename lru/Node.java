@@ -1,10 +1,10 @@
 package lru;
+
 public class Node {
-    
-    Node prev;
-    Node next;
-    int key;
-    int value;
+    public Node prev;
+    public Node next;
+    public int key;
+    public int value;
     
     public Node(int key, int value) {
         this.key = key;
