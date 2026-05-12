@@ -9,7 +9,7 @@ public class LRUCache {
     public LRUCache(int capacity) {
         this.capacity = capacity;
         this.currentSize = 0;
-        this.hashTable = new HashTable(capacity);
+        this.hashTable = new HashTable(capacity*capacity);
         this.dll = new DoublyLinkedList();
     }
 

@@ -3,6 +3,7 @@ package lru;
 public class HashTable {
     private Node[] table;
     private int capacity;
+    private static final Node DELETED = new Node (-1,-1);
 
     public HashTable(int capacity) {
         this.capacity = capacity;
@@ -11,42 +12,54 @@ public class HashTable {
 
     // Hash function: maps key to index
     private int hash(int key) {
-        return key % capacity;
+        return Math.abs(key)% capacity;  //solve if key is negative
     }
 
-    // Search for a node by key - O(1) average case
+    // Search for a node by key - O(n) worst case
     public Node search(int key) {
         int index = hash(key);
-        Node current = table[index];
+        int start = index;
 
-        // Linear probing for collision resolution
-        while (current != null) {
-            if (current.key == key) {
-                return current;
+        while (table[index] != null) {
+
+            if (table[index] != DELETED && table[index].key == key) {
+                return table[index];
             }
-            // In this simple implementation, we use a single slot
-            // For proper chaining, you'd traverse a linked list here
-            break;
+
+            index = (index + 1) % capacity;
+            if (index == start) break; // full cycle
         }
         return null;
     }
 
-    // Insert a node into the hash table - O(1) average case
+    // Insert a node into the hash table - o(n) worst case
     public void insert(Node node) {
-        if (node == null) {
-            return;
-        }
-
         int index = hash(node.key);
+
+        while (table[index] != null && table[index] != DELETED) {
+
+            if (table[index].key == node.key) {
+                table[index] = node;
+                return;
+            }
+            index = (index + 1) % capacity;
+        }
         table[index] = node;
     }
 
-    // Remove a node by key - O(1) average case
+    // Remove a node by key - o(n) worst case
     public void remove(int key) {
         int index = hash(key);
+        int start = index;
 
-        if (table[index] != null && table[index].key == key) {
-            table[index] = null;
+        while (table[index] != null) {
+
+            if (table[index] != DELETED && table[index].key == key) {
+                table[index] = DELETED;
+                return;
+            }
+            index = (index + 1) % capacity;
+            if (index == start) break;
         }
     }
 

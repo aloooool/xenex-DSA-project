@@ -77,15 +77,7 @@ public class DoublyLinkedList {
 
         Node removed = tail;
 
-        if (head == tail) {
-            head = tail = null;
-        } else {
-            tail = tail.prev;
-            tail.next = null;
-        }
-
-        removed.prev = null;
-        removed.next = null;
+        removeNode(removed);
         return removed;
     }
 
