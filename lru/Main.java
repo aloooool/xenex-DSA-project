@@ -5,7 +5,7 @@ public class Main {
         System.out.println("=== LRU Cache System Test ===\n");
 
         // Create LRU Cache with capacity 3
-        LRUCache cache = new LRUCache(3);
+        LRUCache cache = new LRUCache(1);
 
         System.out.println("--- Test 1: Insert until full capacity ---");
         cache.put(1, 10);
