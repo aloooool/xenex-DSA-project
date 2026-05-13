@@ -2,11 +2,9 @@ package lru;
 public class HashTable {
     public DoublyLinkedList[] lista;
     public int capacity;
-    public int memo;
     int total_table_size;
     public HashTable(int capacity) {
         this.capacity = capacity;
-        this.memo = 3*capacity;
         this.lista = new DoublyLinkedList[capacity];
         for (int i = 0; i < capacity; i++) {
             lista[i] = new DoublyLinkedList(false); 
@@ -33,7 +31,7 @@ public class HashTable {
     }
     // comlexty o(1)
     public void insert(Node node){
-        if (total_table_size < memo) {
+        if (total_table_size < capacity) {
             total_table_size++;
             lista[hash(node.key)].insertAtFront(node);   
         }

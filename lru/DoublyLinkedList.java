@@ -115,26 +115,14 @@ public class DoublyLinkedList {
     // Move an existing node to the front (most recently used)
     // comlexty o(1)
     public void moveNodeToFront(Node node) {
-        if (isLRU) {
-            if (node == null || isEmpty(true)) {
-                return;
-            }
-            if (node == headLRU) {
-                return; // Already at front
-            }
-            removeNode(node);
-            insertAtFront(node);
+        if (node == null || isEmpty(true)) {
             return;
         }
-        if (node == null || isEmpty()) {
-                return;
-            }
-            if (node == head) {
-                return; // Already at front
-            }
-            removeNode(node);
-            insertAtFront(node);
-        
+        if (node == headLRU) {
+            return; // Already at front
+        }
+        removeNode(node);
+        insertAtFront(node); 
     }
 
     // Remove and return the least recently used node (tail)
@@ -170,54 +158,9 @@ public class DoublyLinkedList {
         }
         System.out.println();
     }
-    // takes key returns value 
-    // comlexty o(1) but in overloading o(n)
-    public int search(int key){
-        if (isLRU){
-            if(isEmpty(true)){
-                return -1; 
-            }else{
-                Node temp = headLRU;
-                while(temp != null && temp.key !=key){
-                    temp= temp.next;            
-                }
-                if(temp == null){
-                    return -1;
-                }
-                return temp.value;
-            }
-        }
-        if(isEmpty()){
-            return -1; 
-        }else{
-            Node temp = head;
-            while(temp != null && temp.key !=key){
-                temp = temp.hashNext;            
-            }
-            if(temp == null){
-                return -1;
-            }
-            return temp.value;
-        }
-        
-    }
-    // takes key returns node 
+    // takes key returns value  
     // comlexty o(1) but in overloading o(n)
     public Node getNode(int key){
-        if (isLRU) {
-            if(isEmpty(true)){
-                return null; 
-            }else{
-                Node temp = headLRU;
-                while(temp != null && temp.key !=key){
-                    temp= temp.next;            
-                }
-                if(temp == null){
-                    return null;
-                }
-                return temp;
-            }
-        }
         if(isEmpty()){
             return null; 
         }else{

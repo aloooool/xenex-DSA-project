@@ -74,6 +74,6 @@ public class LRUCache {
     }
     // Check if cache is full
     public boolean isFull() {
-        return currentSize == hashTable.memo;
+        return currentSize == capacity;
     }
 }
