@@ -6,7 +6,7 @@ public class DoublyLinkedList {
     public Node headLRU;
     public Node tailLRU;
     boolean isLRU;
-    int size = 0;
+
 
     public DoublyLinkedList(boolean isLRU) {
         this.isLRU = isLRU;
@@ -26,7 +26,6 @@ public class DoublyLinkedList {
     // comlexty o(1)
     public void insertAtFront(Node node) {
         
-        size++;
         if (isLRU){
             if (isEmpty(true)) {
                 headLRU = node;
@@ -41,7 +40,6 @@ public class DoublyLinkedList {
             }
             return;
         }
-        size++;
         if (isEmpty()) {
             head = node;
             tail = node;
@@ -82,7 +80,6 @@ public class DoublyLinkedList {
 
             node.prev = null;
             node.next = null;
-            size--;
             return;
         }
         if (isEmpty() || node == null) {
@@ -109,7 +106,6 @@ public class DoublyLinkedList {
         node.hashPrev = null;
         node.hashNext = null;
 
-        size--;
     }
 
     // Move an existing node to the front (most recently used)
@@ -128,20 +124,14 @@ public class DoublyLinkedList {
     // Remove and return the least recently used node (tail)
     // comlexty o(1) 
     public Node removeLRU() {
-        if (isLRU) {
-            if (isEmpty(true)) {
-                return null;
-            }
-            Node removed = tailLRU;
-            removeNode(removed);
-            return removed;
+    
+        if (isEmpty(true)) {
+            return null;
         }
-        if (isEmpty()) {
-                return null;
-            }
-            Node removed = tail;
-            removeNode(removed);
-            return removed;
+        Node removed = tailLRU;
+        removeNode(removed);
+        return removed;
+        
     }
     // Display the cache from most recent to least recent
     // comlexty o(n) 
@@ -174,7 +164,5 @@ public class DoublyLinkedList {
             return temp;
         }
     }
-    public int getSize(){
-        return this.size;
-    }
+    
 }
